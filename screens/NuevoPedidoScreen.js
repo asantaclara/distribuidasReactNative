@@ -36,13 +36,13 @@ export default class NuevoPedidoScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-            <ClientPicker ref={this.clienteSelect} onMounted={callbacks => this.clienteSelectCallbacks=callbacks}/>
-            <Button
-                onPress={this.handleNuevoPedidoPress.bind(this)}
-                title="Crear Pedido"
-                color="#0d47a1"
-                accessibilityLabel="Learn more about this purple button"
-            />
+                <ClientPicker ref={this.clienteSelect} onMounted={callbacks => this.clienteSelectCallbacks=callbacks}/>
+                <Button
+                    onPress={this.handleNuevoPedidoPress.bind(this)}
+                    title="Crear Pedido"
+                    color="#0d47a1"
+                    accessibilityLabel="Learn more about this purple button"
+                />
             </View>
         )
 

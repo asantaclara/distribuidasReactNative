@@ -1,5 +1,5 @@
 class RestClient {
-  static API_URL = "http://192.168.0.96:8080";
+  static API_URL = "http://722def1e.ngrok.io";
   static GET_CLIENTES = "/get_clientes";
   static GET_CLIENTE = "/get_cliente/";
   static GET_PEDIDOS = "/get_pedidos";
@@ -22,7 +22,7 @@ class RestClient {
   static ELIMINAR_ITEM = "/eliminar_producto_de_pedido";
   static LOGIN = "/login";
   static CAMBIAR_PASSWORD = "/cambiar_password";
-  
+
     static getClientes() {
         return fetch(RestClient.API_URL + RestClient.GET_CLIENTES)
         .then(
