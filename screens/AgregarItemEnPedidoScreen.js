@@ -11,7 +11,8 @@ class AgregarItemEnPedidoScreen extends React.Component  {
     super(props);
     this.state  = {
       pedido: {},
-      isLoaded:false
+      isLoaded:false,
+      botonAccionado: false
     }
     this.ProductoPicker = React.createRef();
   }
@@ -22,14 +23,17 @@ class AgregarItemEnPedidoScreen extends React.Component  {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
-    const data = JSON.stringify({
-      numeroPedido: this.state.pedido.numeroPedido,
-      identificadorProducto: this.ProductoPickerCallbacks.getProductoValue(),
-      cantidad: this.ProductoPickerCallbacks.getCantidadValue(),
-    });
-    console.log(data);
-    RestClient.agregarAPedido(data).then(data => this.handlerVolverAPedidoClick(this.state.pedido.numeroPedido));
+      if(!this.state.botonAccionado){
+          this.state.botonAccionado = true;
+          event.preventDefault();
+          const data = JSON.stringify({
+              numeroPedido: this.state.pedido.numeroPedido,
+              identificadorProducto: this.ProductoPickerCallbacks.getProductoValue(),
+              cantidad: this.ProductoPickerCallbacks.getCantidadValue(),
+          });
+          console.log(data);
+          RestClient.agregarAPedido(data).then(data => this.handlerVolverAPedidoClick(this.state.pedido.numeroPedido));
+      }
   }
 
   componentWillMount() {

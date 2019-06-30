@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, View, ActivityIndicator, FlatList, Button} from "react-native";
+import {Alert, StyleSheet, View, ActivityIndicator, FlatList, Button} from "react-native";
 import {List, ListItem} from "react-native-elements";
 import RestClient from "../rest_api/RestClient";
 import * as WebBrowser from "expo-web-browser";
@@ -19,7 +19,9 @@ class PedidoScreen extends React.Component {
         super(props);
         this.state = {
             loading: true,
-            dataSource: []
+            dataSource: [],
+            botonEliminarPedidoAccionado: false,
+            botonFacturarAccionado : false,
         };
     }
 
@@ -43,20 +45,88 @@ class PedidoScreen extends React.Component {
     }
 
     handleFacturarPress() {
-        RestClient.facturarPedido(this.state.dataSource.numeroPedido).then(data => this.fetchPedido());
+        if(!this.state.botonFacturarAccionado){
+            this.state.botonFacturarAccionado = true;
+            Alert.alert(
+                'Esta seguro de facturar el pedido?',
+                'Esta accion no se puede deshacer',
+                [
+                    {
+                        text: 'Cancelar',
+                        onPress: () => {
+                            console.log('Cancel Pressed')
+                            this.state.botonFacturarAccionado = false;
+                        },
+                        style: 'cancel',
+                    },
+                    {
+                        text: 'FACTURAR', onPress: () => {
+                            console.log('OK Pressed');
+                            RestClient.facturarPedido(this.state.dataSource.numeroPedido).then(data => this.fetchPedido());
+                        }
+                    },
+                ],
+                {cancelable: false},
+            );
+        }
+
     }
     handleAgregarItemPress() {
         this.props.navigation.navigate('AgregarItemEnPedido',this.state.dataSource.numeroPedido)
     }
     handleEliminarPedidoPress() {
-        RestClient.bajaPedido(this.state.dataSource.numeroPedido).then(data => this.props.navigation.navigate('Pedidos'));
+        if(!this.state.botonEliminarPedidoAccionado){
+            this.state.botonEliminarPedidoAccionado = true;
+            Alert.alert(
+                'Esta seguro de eliminar el pedido?',
+                'Esta accion no se puede deshacer',
+                [
+                    {
+                        text: 'Cancelar',
+                        onPress: () => {
+                            console.log('Cancel Pressed');
+                            this.state.botonEliminarPedidoAccionado = false
+                        },
+                        style: 'cancel',
+                    },
+                    {
+                        text: 'ELIMINAR', onPress: () => {
+                            console.log('OK Pressed');
+                            RestClient.bajaPedido(this.state.dataSource.numeroPedido).then(data => this.props.navigation.navigate('Pedidos'));
+
+                        }
+                    },
+                ],
+                {cancelable: false},
+            );
+        }
+
     }
     handleItemPress(numeroItem) {
-        const data = JSON.stringify({
-            numeroPedido: this.state.dataSource.numeroPedido,
-            identificadorItem: numeroItem});
-        RestClient.eliminarItemDePedido(data).then(data => this.fetchPedido());
+        Alert.alert(
+            'Esta seguro de eliminar el item?',
+            'Esta accion no se puede deshacer',
+            [
+                {
+                    text: 'Cancelar',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                },
+                {
+                    text: 'ELIMINAR', onPress: () => {
+                        console.log('OK Pressed');
+                        const data = JSON.stringify({
+                            numeroPedido: this.state.dataSource.numeroPedido,
+                            identificadorItem: numeroItem});
+                        RestClient.eliminarItemDePedido(data).then(data => this.fetchPedido());
+                    }
+                },
+            ],
+            {cancelable: false},
+        );
+
     }
+
 
 
     render() {
@@ -77,24 +147,40 @@ class PedidoScreen extends React.Component {
                     <MonoText>Fecha: {dataSource.fechaPedido}</MonoText>
                     <MonoText>Estado: {dataSource.estado}</MonoText>
                     <MonoText>Cantidad Items: {dataSource.items.length}</MonoText>
-                    <Button
-                        onPress={this.handleFacturarPress.bind(this)}
-                        title="Facturar"
-                        color="#0000FF"
-                        accessibilityLabel="Learn more about this purple button"
-                    />
-                    <Button
-                        onPress={this.handleAgregarItemPress.bind(this)}
-                        title="Agregar Item"
-                        color="#FF0000"
-                        accessibilityLabel="Learn more about this purple button"
-                    />
-                    <Button
-                        onPress={this.handleEliminarPedidoPress.bind(this)}
-                        title="Eliminar Pedido"
-                        color="#00FF00"
-                        accessibilityLabel="Learn more about this purple button"
-                    />
+                    <View style={styles.dialogContentView}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={styles.button_1}>
+                                <Button
+                                    title="FACTURAR"
+                                    color="#0000FF"
+                                    onPress={() => {
+                                        console.log('Click en facturado');
+                                        this.handleFacturarPress();
+                                    }}
+                                />
+                            </View>
+                            <View style={styles.button_1}>
+                                <Button
+                                    title="AGREGAR ITEM"
+                                    color="#00FF00"
+                                    onPress={() => {
+                                        console.log('Click en agregar Item');
+                                        this.handleAgregarItemPress();
+                                    }}
+                                />
+                            </View>
+                            <View style={styles.button_1}>
+                                <Button
+                                    title="ELIMINAR PEDIDO"
+                                    color="#FF0000"
+                                    onPress={() => {
+                                        console.log('Click en eliminar pedido');
+                                        this.handleEliminarPedidoPress();
+                                    }}
+                                />
+                            </View>
+                        </View>
+                    </View>
                     <FlatList
                         data={this.state.dataSource.items}
                         renderItem={({item}) => (
@@ -107,6 +193,7 @@ class PedidoScreen extends React.Component {
                         )}
                         keyExtractor={(item, index) => index.toString()}
                     />
+                    <MonoText>Para eliminar un item presione sobre el mismo</MonoText>
                 </View>
             )
         }
@@ -127,7 +214,16 @@ const styles = StyleSheet.create({
         paddingVertical: 4,
         margin: 5,
         backgroundColor: "#fff"
-    }
+    },
+    dialogContentView: {
+        // flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+    },
+    button_1: {
+        width: '33.333333333333%',
+        height: 30,
+    },
 });
 
 export default withNavigationFocus(PedidoScreen);
