@@ -86,7 +86,7 @@ class ProductoPicker extends React.Component {
         } else {
             return (
                 <View>
-                        <MonoText>Rubro:</MonoText>
+                        <MonoText style={{fontWeight: 'bold'}}>Rubro:</MonoText>
                         <Picker
                             selectedValue={this.state.rubroId}
                             onValueChange={(itemValue, itemIndex) =>{
@@ -98,7 +98,7 @@ class ProductoPicker extends React.Component {
                                 <Picker.Item key={rubro.codigo} label={`${rubro.codigo} ${rubro.descripcion}`} value={rubro.codigo}/>)}
                         </Picker>
 
-                        <MonoText>SubRubro:</MonoText>
+                        <MonoText style={{fontWeight: 'bold'}}>SubRubro:</MonoText>
                         <Picker
                             ref={this.subRubro}
                             selectedValue={this.state.subRubroId}
@@ -110,7 +110,7 @@ class ProductoPicker extends React.Component {
                                 <Picker.Item key={subRubro.codigo} label={`${subRubro.codigo} ${subRubro.descripcion}`} value={subRubro.codigo}/>)}
                         </Picker>
 
-                        <MonoText>Producto:</MonoText>
+                        <MonoText style={{fontWeight: 'bold'}}>Producto:</MonoText>
                         <Picker
                             ref={this.producto}
                             selectedValue={this.state.productoId}
@@ -121,7 +121,7 @@ class ProductoPicker extends React.Component {
                             {productos.map((producto) =>
                                 <Picker.Item key={producto.identificador} label={`${producto.identificador} ${producto.nombre}`} value={producto.identificador}/>)}
                         </Picker>
-                        <MonoText>Cantidad:</MonoText>
+                        <MonoText style={{fontWeight: 'bold'}}>Cantidad:</MonoText>
                         <TextInput
                             keyboardType='numeric'
                             style={{height: 40, borderColor: 'gray', borderWidth: 1}}

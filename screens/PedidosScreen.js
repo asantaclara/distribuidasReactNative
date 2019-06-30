@@ -1,5 +1,5 @@
 import React from "react";
-import {Button,StyleSheet,View,ActivityIndicator,FlatList} from "react-native";
+import {Button, StyleSheet, View, ActivityIndicator, FlatList, ToastAndroid} from "react-native";
 import {List, ListItem} from "react-native-elements";
 import RestClient from "../rest_api/RestClient";
 import * as WebBrowser from "expo-web-browser";
@@ -28,6 +28,7 @@ class PedidosScreen extends React.Component {
     }
 
     componentWillMount() {
+        ToastAndroid.show('Para trabajar sobre el pedido presione sobre el mismo', ToastAndroid.SHORT);
         this.fetchPedidos();
         const { navigation } = this.props;
         this.focusListener = navigation.addListener("didFocus", () => {
@@ -95,7 +96,6 @@ class PedidosScreen extends React.Component {
                         )}
                         keyExtractor={item => item.numeroPedido.toString()}
                     />
-                    <MonoText>Para trabajar sobre el pedido presione sobre el mismo</MonoText>
                 </View>
             )
         }

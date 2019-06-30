@@ -31,7 +31,6 @@ class AgregarItemEnPedidoScreen extends React.Component  {
               identificadorProducto: this.ProductoPickerCallbacks.getProductoValue(),
               cantidad: this.ProductoPickerCallbacks.getCantidadValue(),
           });
-          console.log(data);
           RestClient.agregarAPedido(data).then(data => this.handlerVolverAPedidoClick(this.state.pedido.numeroPedido));
       }
   }
@@ -58,11 +57,11 @@ class AgregarItemEnPedidoScreen extends React.Component  {
       return (
 
           <View>
-            <MonoText>Pedido Nro: {pedido.numeroPedido}</MonoText>
-            <MonoText>Cliente: {pedido.cliente.nombre}</MonoText>
-            <MonoText>Cuil: {pedido.cliente.cuil}</MonoText>
-            <MonoText>Fecha: {pedido.fechaPedido}</MonoText>
-            <MonoText>Estado: {pedido.estado}</MonoText>
+            <MonoText style={{fontWeight: 'bold'}}>Pedido Nro: {pedido.numeroPedido}</MonoText>
+            <MonoText style={{fontWeight: 'bold'}}>Cliente: {pedido.cliente.nombre}</MonoText>
+            <MonoText style={{fontWeight: 'bold'}}>Cuil: {pedido.cliente.cuil}</MonoText>
+            <MonoText style={{fontWeight: 'bold'}}>Fecha: {pedido.fechaPedido}</MonoText>
+            <MonoText style={{fontWeight: 'bold'}}>Estado: {pedido.estado}</MonoText>
 
             <Button
                 onPress={this.handleSubmit.bind(this)}

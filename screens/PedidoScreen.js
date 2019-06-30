@@ -1,5 +1,5 @@
 import React from "react";
-import {Alert, StyleSheet, View, ActivityIndicator, FlatList, Button} from "react-native";
+import {ToastAndroid, Alert, StyleSheet, View, ActivityIndicator, FlatList, Button} from "react-native";
 import {List, ListItem} from "react-native-elements";
 import RestClient from "../rest_api/RestClient";
 import * as WebBrowser from "expo-web-browser";
@@ -26,6 +26,7 @@ class PedidoScreen extends React.Component {
     }
 
     componentWillMount() {
+        ToastAndroid.show('Para eliminar un item presione sobre el mismo', ToastAndroid.SHORT);
         this.fetchPedido();
         const { navigation } = this.props;
         this.focusListener = navigation.addListener("didFocus", () => {
@@ -34,12 +35,10 @@ class PedidoScreen extends React.Component {
     }
 
     fetchPedido() {
-        console.log(this.props.navigation.state.params);
         if(this.props.navigation.state.params){
             RestClient.getPedido((this.state.dataSource.numeroPedido == null) ? this.props.navigation.state.params : this.state.dataSource.numeroPedido)
                 .then(json => {{
                     this.setState({ dataSource: json, loading: false});
-                    console.log(json);
                 }});
         }
     }
@@ -68,6 +67,10 @@ class PedidoScreen extends React.Component {
                 ],
                 {cancelable: false},
             );
+        } else {
+            Alert.alert(
+                'El pedido ya fue facturado'
+            )
         }
 
     }
@@ -141,18 +144,18 @@ class PedidoScreen extends React.Component {
         } else {
             return (
                 <View style={styles.container}>
-                    <MonoText>Pedido Nro: {dataSource.numeroPedido}</MonoText>
-                    <MonoText>Cliente: {dataSource.cliente.nombre}</MonoText>
-                    <MonoText>Cuil: {dataSource.cliente.cuil}</MonoText>
-                    <MonoText>Fecha: {dataSource.fechaPedido}</MonoText>
-                    <MonoText>Estado: {dataSource.estado}</MonoText>
-                    <MonoText>Cantidad Items: {dataSource.items.length}</MonoText>
+                    <MonoText style={{fontWeight: 'bold'}}>Pedido Nro: {dataSource.numeroPedido}</MonoText>
+                    <MonoText style={{fontWeight: 'bold'}}>Cliente: {dataSource.cliente.nombre}</MonoText>
+                    <MonoText style={{fontWeight: 'bold'}}>Cuil: {dataSource.cliente.cuil}</MonoText>
+                    <MonoText style={{fontWeight: 'bold'}}>Fecha: {dataSource.fechaPedido}</MonoText>
+                    <MonoText style={{fontWeight: 'bold'}}>Estado: {dataSource.estado}</MonoText>
+                    <MonoText style={{fontWeight: 'bold'}}>Cantidad Items: {dataSource.items.length}</MonoText>
                     <View style={styles.dialogContentView}>
                         <View style={{ flexDirection: 'row' }}>
                             <View style={styles.button_1}>
                                 <Button
                                     title="Facturar"
-                                    color="#388e3c"
+                                    color="#0d47a1"
                                     onPress={() => {
                                         console.log('Click en facturado');
                                         this.handleFacturarPress();
@@ -172,7 +175,7 @@ class PedidoScreen extends React.Component {
                             <View style={styles.button_1}>
                                 <Button
                                     title="Eliminar Pedido"
-                                    color="#d32f2f"
+                                    color="#0d47a1"
                                     onPress={() => {
                                         console.log('Click en eliminar pedido');
                                         this.handleEliminarPedidoPress();
@@ -193,7 +196,6 @@ class PedidoScreen extends React.Component {
                         )}
                         keyExtractor={(item, index) => index.toString()}
                     />
-                    <MonoText>Para eliminar un item presione sobre el mismo</MonoText>
                 </View>
             )
         }

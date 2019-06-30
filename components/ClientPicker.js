@@ -45,7 +45,6 @@ class ClientPicker extends React.Component {
         } else {
             return (
                 <View style={styles.container}>
-                    <MonoText>Seleccione un cliente para crear un pedido</MonoText>
                     <Picker
                         selectedValue={this.state.clienteCuil}
                         onValueChange={(itemValue, itemIndex) =>

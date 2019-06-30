@@ -22,9 +22,7 @@ class RestClient {
   static ELIMINAR_ITEM = "/eliminar_producto_de_pedido";
   static LOGIN = "/login";
   static CAMBIAR_PASSWORD = "/cambiar_password";
-
-
-
+  
     static getClientes() {
         return fetch(RestClient.API_URL + RestClient.GET_CLIENTES)
         .then(
@@ -53,7 +51,7 @@ class RestClient {
                params += ("estado=" + data.estado);
             }
         }
-        console.log(RestClient.API_URL + RestClient.GET_PEDIDOS + params);
+        console.log("url enviada: " + RestClient.API_URL + RestClient.GET_PEDIDOS + params);
         return fetch(RestClient.API_URL + RestClient.GET_PEDIDOS + params)
         .then(
           response => this.handleServerResponse(response),
