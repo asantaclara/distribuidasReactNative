@@ -4,8 +4,9 @@ import {List, ListItem} from "react-native-elements";
 import RestClient from "../rest_api/RestClient";
 import * as WebBrowser from "expo-web-browser";
 import {MonoText} from "../components/StyledText";
+import {withNavigationFocus} from "react-navigation";
 
-export default class PedidoScreen extends React.Component {
+class PedidoScreen extends React.Component {
     static navigationOptions = ({navigation}) => {
         return {
             title: "Pedido",
@@ -24,12 +25,16 @@ export default class PedidoScreen extends React.Component {
 
     componentWillMount() {
         this.fetchPedido();
+        const { navigation } = this.props;
+        this.focusListener = navigation.addListener("didFocus", () => {
+            this.fetchPedido();
+        });
     }
 
     fetchPedido() {
         console.log(this.props.navigation.state.params);
         if(this.props.navigation.state.params){
-            RestClient.getPedido(this.props.navigation.state.params)
+            RestClient.getPedido((this.state.dataSource.numeroPedido == null) ? this.props.navigation.state.params : this.state.dataSource.numeroPedido)
                 .then(json => {{
                     this.setState({ dataSource: json, loading: false});
                     console.log(json);
@@ -37,19 +42,20 @@ export default class PedidoScreen extends React.Component {
         }
     }
 
-    handleItemPress() {
-        WebBrowser.openBrowserAsync(
-            'https://docs.expo.io/versions/latest/workflow/development-mode/'
-        );
-    }
     handleFacturarPress() {
         RestClient.facturarPedido(this.state.dataSource.numeroPedido).then(data => this.fetchPedido());
     }
     handleAgregarItemPress() {
-        this.props.navigation.navigate('NuevoPedido')
+        this.props.navigation.navigate('AgregarItemEnPedido',this.state.dataSource.numeroPedido)
     }
     handleEliminarPedidoPress() {
         RestClient.bajaPedido(this.state.dataSource.numeroPedido).then(data => this.props.navigation.navigate('Pedidos'));
+    }
+    handleItemPress(numeroItem) {
+        const data = JSON.stringify({
+            numeroPedido: this.state.dataSource.numeroPedido,
+            identificadorItem: numeroItem});
+        RestClient.eliminarItemDePedido(data).then(data => this.fetchPedido());
     }
 
 
@@ -93,10 +99,10 @@ export default class PedidoScreen extends React.Component {
                         data={this.state.dataSource.items}
                         renderItem={({item}) => (
                             <ListItem
+                                onPress={this.handleItemPress.bind(this,item.numero)}
                                 title={item.producto.nombre}
                                 subtitle={`Cantidad: ${item.cantidad} Precio: $${item.producto.precio}`}
                                 containerStyle={{borderBottomWidth: 0}}
-
                             />
                         )}
                         keyExtractor={(item, index) => index.toString()}
@@ -123,3 +129,5 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff"
     }
 });
+
+export default withNavigationFocus(PedidoScreen);

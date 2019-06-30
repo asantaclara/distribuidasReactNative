@@ -184,7 +184,7 @@ class RestClient {
                 'Accept':       'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data)
+            body: data
         }).then(
           response => this.handleServerResponse(response),
           error => this.handleServerError(error)
@@ -198,7 +198,7 @@ class RestClient {
         'Accept':       'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: data
     }).then(
       response => this.handleServerResponse(response),
       error => this.handleServerError(error)

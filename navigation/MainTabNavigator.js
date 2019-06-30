@@ -13,6 +13,7 @@ import ProductosScreen from '../screens/ProductosScreen';
 import PedidosScreen from '../screens/PedidosScreen';
 import PedidoScreen from "../screens/PedidoScreen";
 import NuevoPedidoScreen from "../screens/NuevoPedidoScreen";
+import AgregarItemEnPedidoScreen from "../screens/AgregarItemEnPedidoScreen";
 
 const ProductosStack = createStackNavigator({
   Productos: ProductosScreen,
@@ -35,7 +36,8 @@ ProductosStack.navigationOptions = {
 const PedidosStack = createStackNavigator({
   Pedidos: PedidosScreen,
   Pedido: PedidoScreen,
-  NuevoPedido: NuevoPedidoScreen
+  NuevoPedido: NuevoPedidoScreen,
+  AgregarItemEnPedido: AgregarItemEnPedidoScreen
 });
 
 PedidosStack.navigationOptions = {
