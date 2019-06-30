@@ -41,8 +41,20 @@ class RestClient {
         ).catch(error => this.handleServerError(error))
     }
 
-    static getPedidos() {
-        return fetch(RestClient.API_URL + RestClient.GET_PEDIDOS)
+    static getPedidos(data) {
+        var params = "";
+
+        if (data) {
+            params += "?";
+            if(data.clienteId){
+                params += ("clienteId=" + data.clienteId + "&");
+            }
+            if (data.estado) {
+               params += ("estado=" + data.estado);
+            }
+        }
+        console.log(RestClient.API_URL + RestClient.GET_PEDIDOS + params);
+        return fetch(RestClient.API_URL + RestClient.GET_PEDIDOS + params)
         .then(
           response => this.handleServerResponse(response),
           error => this.handleServerError(error)
@@ -170,7 +182,7 @@ class RestClient {
                 'Accept':       'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data)
+            body: data
         }).then(
           response => this.handleServerResponse(response),
           error => this.handleServerError(error)

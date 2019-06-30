@@ -5,6 +5,9 @@ import RestClient from "../rest_api/RestClient";
 import * as WebBrowser from "expo-web-browser";
 import { withNavigationFocus } from "react-navigation";
 import {MonoText} from "../components/StyledText";
+import ClientAndEstadoPicker from "../components/ClientAndEstadoPicker.js"
+import ProductoPicker from "../components/ProductoPicker";
+import ClientPicker from "../components/ClientPicker";
 
 class PedidosScreen extends React.Component {
     static navigationOptions = ({navigation}) => {
@@ -21,6 +24,7 @@ class PedidosScreen extends React.Component {
             loading: true,
             dataSource: []
         };
+        this.clienteEstadoSelect = React.createRef();
     }
 
     componentWillMount() {
@@ -31,8 +35,8 @@ class PedidosScreen extends React.Component {
         });
     }
 
-    fetchPedidos() {
-        RestClient.getPedidos().then(json => {
+    fetchPedidos(data) {
+        RestClient.getPedidos(data).then(json => {
             this.setState({dataSource: json, loading: false})
         });
     }
@@ -42,6 +46,13 @@ class PedidosScreen extends React.Component {
     }
     handleNuevoPedidoPress() {
         this.props.navigation.navigate('NuevoPedido')
+    }
+    handleFiltrarPress() {
+        const data = {
+            clienteId:  this.clienteEstadoSelectCallbacks.getClienteValue(),
+            estado:  this.clienteEstadoSelectCallbacks.getEstadoValue()
+        };
+        this.fetchPedidos(data);
     }
 
     render() {
@@ -54,12 +65,25 @@ class PedidosScreen extends React.Component {
         } else {
             return (
                 <View style={styles.container}>
-                    <Button
-                        onPress={this.handleNuevoPedidoPress.bind(this)}
-                        title="Nuevo Pedido"
-                        color="#0d47a1"
-                        accessibilityLabel="Learn more about this purple button"
-                    />
+                    <ClientAndEstadoPicker ref={this.clienteEstadoSelect} onMounted={callbacks => this.clienteEstadoSelectCallbacks=callbacks}/>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={styles.button_1}>
+                            <Button
+                                onPress={this.handleNuevoPedidoPress.bind(this)}
+                                title="Nuevo Pedido"
+                                color="#0d47a1"
+                                accessibilityLabel="Learn more about this purple button"
+                            />
+                        </View>
+                        <View style={styles.button_1}>
+                            <Button
+                                onPress={this.handleFiltrarPress.bind(this)}
+                                title="Filtrar"
+                                color="#0d47a1"
+                                accessibilityLabel="Learn more about this purple button"
+                            />
+                        </View>
+                    </View>
                     <FlatList
                         data={this.state.dataSource}
                         renderItem={({item}) => (
@@ -92,7 +116,15 @@ const styles = StyleSheet.create({
         paddingVertical: 4,
         margin: 5,
         backgroundColor: "#fff"
-    }
+    }, dialogContentView: {
+        // flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+    },
+    button_1: {
+        width: '50%',
+        height: 30,
+    },
 });
 
 export default withNavigationFocus(PedidosScreen);

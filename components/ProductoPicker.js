@@ -93,6 +93,7 @@ class ProductoPicker extends React.Component {
                                 this.setState({rubroId: itemValue});
                                 this.handleRubrosChange(itemValue);
                             }}>
+                            <Picker.Item key={0} label={'Seleccione un rubro'} value={0}/>
                             {rubros.map((rubro) =>
                                 <Picker.Item key={rubro.codigo} label={`${rubro.codigo} ${rubro.descripcion}`} value={rubro.codigo}/>)}
                         </Picker>
