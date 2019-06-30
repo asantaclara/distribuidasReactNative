@@ -122,6 +122,7 @@ class ProductoPicker extends React.Component {
                         </Picker>
                         <MonoText>Cantidad:</MonoText>
                         <TextInput
+                            keyboardType='numeric'
                             style={{height: 40, borderColor: 'gray', borderWidth: 1}}
                             onChangeText={(cantidad) => this.setState({cantidad})}
                             value={this.state.cantidad}

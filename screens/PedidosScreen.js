@@ -4,6 +4,7 @@ import {List, ListItem} from "react-native-elements";
 import RestClient from "../rest_api/RestClient";
 import * as WebBrowser from "expo-web-browser";
 import { withNavigationFocus } from "react-navigation";
+import {MonoText} from "../components/StyledText";
 
 class PedidosScreen extends React.Component {
     static navigationOptions = ({navigation}) => {
@@ -56,20 +57,21 @@ class PedidosScreen extends React.Component {
                     <Button
                         onPress={this.handleNuevoPedidoPress.bind(this)}
                         title="Nuevo Pedido"
-                        color="#841584"
+                        color="#0d47a1"
                         accessibilityLabel="Learn more about this purple button"
                     />
                     <FlatList
                         data={this.state.dataSource}
                         renderItem={({item}) => (
                             <ListItem onPress={this.handleItemPress.bind(this,item.numeroPedido)}
-                                title={`#${item.numeroPedido} (${item.estado}) `}
-                                subtitle={`${item.cliente.nombre} `}
+                                title={`N°${item.numeroPedido} - Contenido: ${item.items.length} items - Estado: ${item.estado} `}
+                                subtitle={`de ${item.cliente.nombre} - Cuil: ${item.cliente.cuil} `}
                                 containerStyle={{borderBottomWidth: 0}}
                             />
                         )}
                         keyExtractor={item => item.numeroPedido.toString()}
                     />
+                    <MonoText>Para trabajar sobre el pedido presione sobre el mismo</MonoText>
                 </View>
             )
         }

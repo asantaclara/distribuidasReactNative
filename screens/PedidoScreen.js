@@ -151,8 +151,8 @@ class PedidoScreen extends React.Component {
                         <View style={{ flexDirection: 'row' }}>
                             <View style={styles.button_1}>
                                 <Button
-                                    title="FACTURAR"
-                                    color="#0000FF"
+                                    title="Facturar"
+                                    color="#388e3c"
                                     onPress={() => {
                                         console.log('Click en facturado');
                                         this.handleFacturarPress();
@@ -161,8 +161,8 @@ class PedidoScreen extends React.Component {
                             </View>
                             <View style={styles.button_1}>
                                 <Button
-                                    title="AGREGAR ITEM"
-                                    color="#00FF00"
+                                    title="Agregar Item"
+                                    color="#0d47a1"
                                     onPress={() => {
                                         console.log('Click en agregar Item');
                                         this.handleAgregarItemPress();
@@ -171,8 +171,8 @@ class PedidoScreen extends React.Component {
                             </View>
                             <View style={styles.button_1}>
                                 <Button
-                                    title="ELIMINAR PEDIDO"
-                                    color="#FF0000"
+                                    title="Eliminar Pedido"
+                                    color="#d32f2f"
                                     onPress={() => {
                                         console.log('Click en eliminar pedido');
                                         this.handleEliminarPedidoPress();

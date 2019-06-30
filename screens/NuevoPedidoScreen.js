@@ -40,7 +40,7 @@ export default class NuevoPedidoScreen extends React.Component {
             <Button
                 onPress={this.handleNuevoPedidoPress.bind(this)}
                 title="Crear Pedido"
-                color="#841584"
+                color="#0d47a1"
                 accessibilityLabel="Learn more about this purple button"
             />
             </View>

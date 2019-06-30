@@ -67,7 +67,7 @@ class AgregarItemEnPedidoScreen extends React.Component  {
             <Button
                 onPress={this.handleSubmit.bind(this)}
                 title="Agregar Item En Pedido"
-                color="#00FF00"
+                color="#0d47a1"
             />
             <ProductoPicker ref={this.ProductoPicker} onMounted={callbacks => this.ProductoPickerCallbacks=callbacks}/>
           </View>
