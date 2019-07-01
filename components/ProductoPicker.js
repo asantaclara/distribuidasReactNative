@@ -106,6 +106,7 @@ class ProductoPicker extends React.Component {
                                 this.setState({subRubroId: itemValue});
                                 this.handleSubRubrosChange(itemValue);
                             }}>
+                            <Picker.Item key={0} label={'Seleccione un subrubro'} value={0}/>
                             {subRubros.map((subRubro) =>
                                 <Picker.Item key={subRubro.codigo} label={`${subRubro.codigo} ${subRubro.descripcion}`} value={subRubro.codigo}/>)}
                         </Picker>
@@ -118,11 +119,13 @@ class ProductoPicker extends React.Component {
                                 this.setState({productoId: itemValue});
                                 this.handleProductosChange(itemValue);
                             }}>
+                            <Picker.Item key={0} label={'Seleccione un producto'} value={0}/>
                             {productos.map((producto) =>
                                 <Picker.Item key={producto.identificador} label={`${producto.identificador} ${producto.nombre}`} value={producto.identificador}/>)}
                         </Picker>
                         <MonoText style={{fontWeight: 'bold'}}>Cantidad:</MonoText>
                         <TextInput
+                            placeholder={'Ingrese la cantidad'}
                             keyboardType='numeric'
                             style={{height: 40, borderColor: 'gray', borderWidth: 1}}
                             onChangeText={(cantidad) => this.setState({cantidad})}

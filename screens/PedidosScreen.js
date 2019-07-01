@@ -1,13 +1,10 @@
 import React from "react";
 import {Button, StyleSheet, View, ActivityIndicator, FlatList, ToastAndroid} from "react-native";
-import {List, ListItem} from "react-native-elements";
+import {ListItem} from "react-native-elements";
 import RestClient from "../rest_api/RestClient";
 import * as WebBrowser from "expo-web-browser";
 import { withNavigationFocus } from "react-navigation";
-import {MonoText} from "../components/StyledText";
 import ClientAndEstadoPicker from "../components/ClientAndEstadoPicker.js"
-import ProductoPicker from "../components/ProductoPicker";
-import ClientPicker from "../components/ClientPicker";
 
 class PedidosScreen extends React.Component {
     static navigationOptions = ({navigation}) => {
@@ -88,10 +85,12 @@ class PedidosScreen extends React.Component {
                     <FlatList
                         data={this.state.dataSource}
                         renderItem={({item}) => (
-                            <ListItem onPress={this.handleItemPress.bind(this,item.numeroPedido)}
-                                title={`N°${item.numeroPedido} - Contenido: ${item.items.length} items - Estado: ${item.estado} `}
+                            <ListItem
+                                onPress={this.handleItemPress.bind(this,item.numeroPedido)}
+                                title={`N°${item.numeroPedido} Estado: ${item.estado} `}
                                 subtitle={`de ${item.cliente.nombre} - Cuil: ${item.cliente.cuil} `}
                                 containerStyle={{borderBottomWidth: 0}}
+                                badge={{ value: item.items.length, textStyle: { color: 'white' }, containerStyle: 'center' }}
                             />
                         )}
                         keyExtractor={item => item.numeroPedido.toString()}
