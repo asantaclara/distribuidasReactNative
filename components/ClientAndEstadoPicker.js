@@ -40,7 +40,7 @@ class ClientAndEstadoPicker extends React.Component {
     }
 
     render() {
-        var {isLoaded, clientes, estados} = this.state;
+        var {isLoaded, clientes, estado, clienteId} = this.state;
 
         if (!isLoaded) {
             return (
@@ -52,6 +52,7 @@ class ClientAndEstadoPicker extends React.Component {
             return (
                 <View>
                     <Picker
+                        style={{ color:(clienteId == "") ? '#ACABAB' : '#FF0000' }}
                         selectedValue={this.state.clienteId}
                         onValueChange={(itemValue, itemIndex) =>
                             this.setState({clienteId: itemValue})
@@ -61,13 +62,14 @@ class ClientAndEstadoPicker extends React.Component {
                             <Picker.Item key={cliente.numero} label={`${cliente.numero} ${cliente.nombre}`} value={cliente.numero}/>)}
                     </Picker>
                     <Picker
+                        style={{ color:(estado == "") ? '#ACABAB' : '#FF0000' }}
                         selectedValue={this.state.estado}
                         onValueChange={(itemValue, itemIndex) =>
                             this.setState({estado: itemValue})
                         }>
                         <Picker.Item label="Seleccione un estado" value="" />
-                        <Picker.Item label="pendiente" value="pendiente" />
-                        <Picker.Item label="facturado" value="facturado" />
+                        <Picker.Item label="PENDIENTE" value="pendiente" />
+                        <Picker.Item label="FACTURADO" value="facturado" />
                     </Picker>
                 </View>
             );

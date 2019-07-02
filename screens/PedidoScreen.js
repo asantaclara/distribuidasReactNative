@@ -1,8 +1,7 @@
 import React from "react";
 import {ToastAndroid, Alert, StyleSheet, View, ActivityIndicator, FlatList, Button} from "react-native";
-import {List, ListItem} from "react-native-elements";
+import {ListItem} from "react-native-elements";
 import RestClient from "../rest_api/RestClient";
-import * as WebBrowser from "expo-web-browser";
 import {MonoText} from "../components/StyledText";
 import {withNavigationFocus} from "react-navigation";
 
@@ -144,12 +143,14 @@ class PedidoScreen extends React.Component {
         } else {
             return (
                 <View style={styles.container}>
-                    <MonoText style={{fontWeight: 'bold'}}>Pedido Nro: {dataSource.numeroPedido}</MonoText>
-                    <MonoText style={{fontWeight: 'bold'}}>Cliente: {dataSource.cliente.nombre}</MonoText>
-                    <MonoText style={{fontWeight: 'bold'}}>Cuil: {dataSource.cliente.cuil}</MonoText>
-                    <MonoText style={{fontWeight: 'bold'}}>Fecha: {dataSource.fechaPedido}</MonoText>
-                    <MonoText style={{fontWeight: 'bold'}}>Estado: {dataSource.estado}</MonoText>
-                    <MonoText style={{fontWeight: 'bold'}}>Cantidad Items: {dataSource.items.length}</MonoText>
+                    <View style={styles.containerText}>
+                        <MonoText style={{fontWeight: 'bold'}}>Pedido Nro: {dataSource.numeroPedido}</MonoText>
+                        <MonoText style={{fontWeight: 'bold'}}>Cliente: {dataSource.cliente.nombre}</MonoText>
+                        <MonoText style={{fontWeight: 'bold'}}>Cuil: {dataSource.cliente.cuil}</MonoText>
+                        <MonoText style={{fontWeight: 'bold'}}>Fecha: {dataSource.fechaPedido}</MonoText>
+                        <MonoText style={{fontWeight: 'bold'}}>Estado: {dataSource.estado}</MonoText>
+                        <MonoText style={{fontWeight: 'bold'}}>Cantidad Items: {dataSource.items.length}</MonoText>
+                    </View>
                     <View style={styles.dialogContentView}>
                         <View style={{ flexDirection: 'row' }}>
                             <View style={styles.button_1}>
@@ -205,6 +206,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff"
+    },
+    containerText: {
+        backgroundColor: "#EEEEEE",
+        padding: '1%'
     },
     loader: {
         flex: 1,

@@ -1,6 +1,6 @@
 import React from "react";
 import RestClient from "../rest_api/RestClient";
-import {ActivityIndicator, Button, FlatList, View} from "react-native";
+import {ActivityIndicator, Button, FlatList, StyleSheet, View} from "react-native";
 import {MonoText} from "../components/StyledText";
 import {ListItem} from "react-native-elements";
 import ProductoPicker from "../components/ProductoPicker";
@@ -57,12 +57,13 @@ class AgregarItemEnPedidoScreen extends React.Component  {
       return (
 
           <View>
-            <MonoText style={{fontWeight: 'bold'}}>Pedido Nro: {pedido.numeroPedido}</MonoText>
-            <MonoText style={{fontWeight: 'bold'}}>Cliente: {pedido.cliente.nombre}</MonoText>
-            <MonoText style={{fontWeight: 'bold'}}>Cuil: {pedido.cliente.cuil}</MonoText>
-            <MonoText style={{fontWeight: 'bold'}}>Fecha: {pedido.fechaPedido}</MonoText>
-            <MonoText style={{fontWeight: 'bold'}}>Estado: {pedido.estado}</MonoText>
-
+            <View style={styles.containerText}>
+                <MonoText style={{fontWeight: 'bold'}}>Pedido Nro: {pedido.numeroPedido}</MonoText>
+                <MonoText style={{fontWeight: 'bold'}}>Cliente: {pedido.cliente.nombre}</MonoText>
+                <MonoText style={{fontWeight: 'bold'}}>Cuil: {pedido.cliente.cuil}</MonoText>
+                <MonoText style={{fontWeight: 'bold'}}>Fecha: {pedido.fechaPedido}</MonoText>
+                <MonoText style={{fontWeight: 'bold'}}>Estado: {pedido.estado}</MonoText>
+            </View>
             <Button
                 onPress={this.handleSubmit.bind(this)}
                 title="Agregar Item En Pedido"
@@ -74,4 +75,11 @@ class AgregarItemEnPedidoScreen extends React.Component  {
     }
   }
 }
+
+const styles = StyleSheet.create({
+    containerText: {
+        backgroundColor: "#EEEEEE",
+        padding: '1%'
+    },
+});
 export default AgregarItemEnPedidoScreen;

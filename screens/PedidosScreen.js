@@ -2,7 +2,6 @@ import React from "react";
 import {Button, StyleSheet, View, ActivityIndicator, FlatList, ToastAndroid} from "react-native";
 import {ListItem} from "react-native-elements";
 import RestClient from "../rest_api/RestClient";
-import * as WebBrowser from "expo-web-browser";
 import { withNavigationFocus } from "react-navigation";
 import ClientAndEstadoPicker from "../components/ClientAndEstadoPicker.js"
 
@@ -86,11 +85,12 @@ class PedidosScreen extends React.Component {
                         data={this.state.dataSource}
                         renderItem={({item}) => (
                             <ListItem
+
                                 onPress={this.handleItemPress.bind(this,item.numeroPedido)}
-                                title={`N°${item.numeroPedido} Estado: ${item.estado} `}
+                                title={`N° de pedido: ${item.numeroPedido}`}
                                 subtitle={`de ${item.cliente.nombre} - Cuil: ${item.cliente.cuil} `}
                                 containerStyle={{borderBottomWidth: 0}}
-                                badge={{ value: item.items.length, textStyle: { color: 'white' }, containerStyle: 'center' }}
+                                badge={{ value: item.items.length, textStyle: { color: 'white' }, containerStyle: 'center', status: (item.estado == 'facturado') ? 'error' : 'success' }}
                             />
                         )}
                         keyExtractor={item => item.numeroPedido.toString()}
