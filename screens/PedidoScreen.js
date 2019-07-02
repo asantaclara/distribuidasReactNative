@@ -24,7 +24,7 @@ class PedidoScreen extends React.Component {
     }
 
     componentWillMount() {
-        ToastAndroid.show('Para eliminar un item presione sobre el mismo', ToastAndroid.SHORT);
+        ToastAndroid.show('Para eliminar un item presione sobre el mismo durante unos segundos', ToastAndroid.SHORT);
         this.fetchPedido();
         const { navigation } = this.props;
         this.focusListener = navigation.addListener("didFocus", () => {
