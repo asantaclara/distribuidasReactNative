@@ -1,8 +1,7 @@
 import React from "react";
-import {ToastAndroid, Alert, StyleSheet, View, ActivityIndicator, FlatList, Button} from "react-native";
+import {ImageBackground, Text, ToastAndroid, Alert, StyleSheet, View, ActivityIndicator, FlatList, Button} from "react-native";
 import {ListItem} from "react-native-elements";
 import RestClient from "../rest_api/RestClient";
-import {MonoText} from "../components/StyledText";
 import {withNavigationFocus} from "react-navigation";
 
 class PedidoScreen extends React.Component {
@@ -143,14 +142,16 @@ class PedidoScreen extends React.Component {
         } else {
             return (
                 <View style={styles.container}>
-                    <View style={styles.containerText}>
-                        <MonoText style={{fontWeight: 'bold'}}>Pedido Nro: {dataSource.numeroPedido}</MonoText>
-                        <MonoText style={{fontWeight: 'bold'}}>Cliente: {dataSource.cliente.nombre}</MonoText>
-                        <MonoText style={{fontWeight: 'bold'}}>Cuil: {dataSource.cliente.cuil}</MonoText>
-                        <MonoText style={{fontWeight: 'bold'}}>Fecha: {dataSource.fechaPedido}</MonoText>
-                        <MonoText style={{fontWeight: 'bold'}}>Estado: {dataSource.estado}</MonoText>
-                        <MonoText style={{fontWeight: 'bold'}}>Cantidad Items: {dataSource.items.length}</MonoText>
-                    </View>
+                    <ImageBackground source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/2/29/LogoUADE.png'}} style={{width: window.width, height: 180}} imageStyle={{opacity:0.2}}>
+                        <View style={styles.dialogContentView}>
+                            <Text style={styles.containerText}>Pedido Nro: {dataSource.numeroPedido}</Text>
+                            <Text style={styles.containerText}>Cliente: {dataSource.cliente.nombre}</Text>
+                            <Text style={styles.containerText}>Cuil: {dataSource.cliente.cuil}</Text>
+                            <Text style={styles.containerText}>Fecha: {dataSource.fechaPedido}</Text>
+                            <Text style={styles.containerText}>Estado: {dataSource.estado}</Text>
+                            <Text style={styles.containerText}>Cantidad Items: {dataSource.items.length}</Text>
+                        </View>
+                    </ImageBackground>
                     <View style={styles.dialogContentView}>
                         <View style={{ flexDirection: 'row' }}>
                             <View style={styles.button_1}>
@@ -189,7 +190,7 @@ class PedidoScreen extends React.Component {
                         data={this.state.dataSource.items}
                         renderItem={({item}) => (
                             <ListItem
-                                onPress={this.handleItemPress.bind(this,item.numero)}
+                                onLongPress={this.handleItemPress.bind(this,item.numero)}
                                 title={item.producto.nombre}
                                 subtitle={`Cantidad: ${item.cantidad} Precio: $${item.producto.precio}`}
                                 containerStyle={{borderBottomWidth: 0}}
@@ -205,11 +206,12 @@ class PedidoScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff"
+        backgroundColor: "#EEEEEE",
     },
     containerText: {
-        backgroundColor: "#EEEEEE",
-        padding: '1%'
+        padding: '1%',
+        textAlign: 'center',
+        fontWeight: 'bold'
     },
     loader: {
         flex: 1,

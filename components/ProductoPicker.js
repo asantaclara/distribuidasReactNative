@@ -1,8 +1,6 @@
 import React from "react";
 import RestClient from "../rest_api/RestClient";
-import {Picker,ActivityIndicator, StyleSheet, View} from "react-native";
-import {MonoText} from "./StyledText";
-import { AppRegistry, TextInput } from 'react-native';
+import {TextInput, Text, Picker, ActivityIndicator, View, StyleSheet} from "react-native";
 
 class ProductoPicker extends React.Component {
 
@@ -86,20 +84,19 @@ class ProductoPicker extends React.Component {
         } else {
             return (
                 <View>
-                        <MonoText style={{fontWeight: 'bold'}}>Rubro:</MonoText>
-                        <Picker
-                            selectedValue={this.state.rubroId}
-                            onValueChange={(itemValue, itemIndex) =>{
-                                this.setState({rubroId: itemValue});
-                                this.handleRubrosChange(itemValue);
-                            }}>
-                            <Picker.Item key={0} label={'Seleccione un rubro'} value={0}/>
-                            {rubros.map((rubro) =>
-                                <Picker.Item key={rubro.codigo} label={`${rubro.codigo} ${rubro.descripcion}`} value={rubro.codigo}/>)}
-                        </Picker>
-
-                        <MonoText style={{fontWeight: 'bold'}}>SubRubro:</MonoText>
-                        <Picker
+                    <Text style={styles.containerText}>Rubro:</Text>
+                    <Picker
+                        selectedValue={this.state.rubroId}
+                        onValueChange={(itemValue, itemIndex) =>{
+                            this.setState({rubroId: itemValue});
+                            this.handleRubrosChange(itemValue);
+                        }}>
+                        <Picker.Item key={0} label={'Seleccione un rubro'} value={0}/>
+                        {rubros.map((rubro) =>
+                            <Picker.Item key={rubro.codigo} label={`${rubro.codigo} - ${rubro.descripcion}`} value={rubro.codigo}/>)}
+                    </Picker>
+                    <Text style={styles.containerText}>Subrubro:</Text>
+                    <Picker
                             ref={this.subRubro}
                             selectedValue={this.state.subRubroId}
                             onValueChange={(itemValue, itemIndex) =>{
@@ -108,11 +105,10 @@ class ProductoPicker extends React.Component {
                             }}>
                             <Picker.Item key={0} label={'Seleccione un subrubro'} value={0}/>
                             {subRubros.map((subRubro) =>
-                                <Picker.Item key={subRubro.codigo} label={`${subRubro.codigo} ${subRubro.descripcion}`} value={subRubro.codigo}/>)}
+                                <Picker.Item key={subRubro.codigo} label={`${subRubro.codigo} - ${subRubro.descripcion}`} value={subRubro.codigo}/>)}
                         </Picker>
-
-                        <MonoText style={{fontWeight: 'bold'}}>Producto:</MonoText>
-                        <Picker
+                    <Text style={styles.containerText}>Producto:</Text>
+                    <Picker
                             ref={this.producto}
                             selectedValue={this.state.productoId}
                             onValueChange={(itemValue, itemIndex) =>{
@@ -121,15 +117,16 @@ class ProductoPicker extends React.Component {
                             }}>
                             <Picker.Item key={0} label={'Seleccione un producto'} value={0}/>
                             {productos.map((producto) =>
-                                <Picker.Item key={producto.identificador} label={`${producto.identificador} ${producto.nombre}`} value={producto.identificador}/>)}
+                                <Picker.Item key={producto.identificador} label={`${producto.identificador} - ${producto.nombre}`} value={producto.identificador}/>)}
                         </Picker>
-                        <MonoText style={{fontWeight: 'bold'}}>Cantidad:</MonoText>
-                        <TextInput
+                    <Text style={styles.containerText}>Cantidad:</Text>
+                    <TextInput
                             placeholder={'Ingrese la cantidad'}
                             keyboardType='numeric'
-                            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                            style={{height: 40, borderColor: 'gray', borderWidth: 0.2}}
                             onChangeText={(cantidad) => this.setState({cantidad})}
                             value={this.state.cantidad}
+                            paddingLeft={8}
                         />
                 </View>
             );
@@ -137,4 +134,12 @@ class ProductoPicker extends React.Component {
     }
 }
 
+const styles = StyleSheet.create({
+    containerText: {
+        backgroundColor: "#FFFFFF",
+        padding: '1%',
+        textAlign: 'center',
+        fontWeight: 'bold'
+    }
+});
 export default ProductoPicker;

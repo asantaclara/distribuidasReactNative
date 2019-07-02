@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, StyleSheet, View, ActivityIndicator, FlatList, ToastAndroid} from "react-native";
+import {Button, StyleSheet, View, ActivityIndicator, FlatList, ToastAndroid, ImageBackground, Text} from "react-native";
 import {ListItem} from "react-native-elements";
 import RestClient from "../rest_api/RestClient";
 import { withNavigationFocus } from "react-navigation";
@@ -24,7 +24,7 @@ class PedidosScreen extends React.Component {
     }
 
     componentWillMount() {
-        ToastAndroid.show('Para trabajar sobre el pedido presione sobre el mismo', ToastAndroid.SHORT);
+        ToastAndroid.show('Para trabajar sobre el pedido presione sobre el mismo / Azul: Facturado / Verde: Pendiente', ToastAndroid.LONG);
         this.fetchPedidos();
         const { navigation } = this.props;
         this.focusListener = navigation.addListener("didFocus", () => {
@@ -85,12 +85,11 @@ class PedidosScreen extends React.Component {
                         data={this.state.dataSource}
                         renderItem={({item}) => (
                             <ListItem
-
                                 onPress={this.handleItemPress.bind(this,item.numeroPedido)}
                                 title={`N° de pedido: ${item.numeroPedido}`}
                                 subtitle={`de ${item.cliente.nombre} - Cuil: ${item.cliente.cuil} `}
                                 containerStyle={{borderBottomWidth: 0}}
-                                badge={{ value: item.items.length, textStyle: { color: 'white' }, containerStyle: 'center', status: (item.estado == 'facturado') ? 'error' : 'success' }}
+                                badge={{ value: item.items.length, textStyle: { color: 'white' }, containerStyle: 'center', status: (item.estado == 'facturado') ? 'primary' : 'success' }}
                             />
                         )}
                         keyExtractor={item => item.numeroPedido.toString()}

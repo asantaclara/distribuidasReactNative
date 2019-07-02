@@ -1,8 +1,6 @@
 import React from "react";
 import RestClient from "../rest_api/RestClient";
-import {ActivityIndicator, Button, FlatList, StyleSheet, View} from "react-native";
-import {MonoText} from "../components/StyledText";
-import {ListItem} from "react-native-elements";
+import {Text, ActivityIndicator, Button, FlatList, StyleSheet, View, ImageBackground} from "react-native";
 import ProductoPicker from "../components/ProductoPicker";
 
 class AgregarItemEnPedidoScreen extends React.Component  {
@@ -55,15 +53,16 @@ class AgregarItemEnPedidoScreen extends React.Component  {
       )
     } else {
       return (
-
-          <View>
-            <View style={styles.containerText}>
-                <MonoText style={{fontWeight: 'bold'}}>Pedido Nro: {pedido.numeroPedido}</MonoText>
-                <MonoText style={{fontWeight: 'bold'}}>Cliente: {pedido.cliente.nombre}</MonoText>
-                <MonoText style={{fontWeight: 'bold'}}>Cuil: {pedido.cliente.cuil}</MonoText>
-                <MonoText style={{fontWeight: 'bold'}}>Fecha: {pedido.fechaPedido}</MonoText>
-                <MonoText style={{fontWeight: 'bold'}}>Estado: {pedido.estado}</MonoText>
-            </View>
+          <View style={styles.container}>
+            <ImageBackground source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/2/29/LogoUADE.png'}} style={{width: window.width, height: 140}} imageStyle={{opacity:0.2}}>
+                <View style={styles.dialogContentView}>
+                    <Text style={styles.containerText}>Pedido Nro: {pedido.numeroPedido}</Text>
+                    <Text style={styles.containerText}>Cliente: {pedido.cliente.nombre}</Text>
+                    <Text style={styles.containerText}>Cuil: {pedido.cliente.cuil}</Text>
+                    <Text style={styles.containerText}>Fecha: {pedido.fechaPedido}</Text>
+                    <Text style={styles.containerText}>Estado: {pedido.estado}</Text>
+                </View>
+            </ImageBackground>
             <Button
                 onPress={this.handleSubmit.bind(this)}
                 title="Agregar Item En Pedido"
@@ -77,9 +76,21 @@ class AgregarItemEnPedidoScreen extends React.Component  {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        // backgroundColor: "#EEEEEE",
+    },
     containerText: {
-        backgroundColor: "#EEEEEE",
-        padding: '1%'
+
+        padding: '1%',
+        textAlign: 'center',
+        fontWeight: 'bold'
+    },
+    dialogContentView: {
+        // flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
     },
 });
+
 export default AgregarItemEnPedidoScreen;

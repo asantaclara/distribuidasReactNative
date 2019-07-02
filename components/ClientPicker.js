@@ -52,7 +52,7 @@ class ClientPicker extends React.Component {
                         }>
                         <Picker.Item key={0} label={'Seleccione un cliente'} value={0}/>
                         {clientes.map((cliente) =>
-                            <Picker.Item key={cliente.cuil} label={`${cliente.numero} ${cliente.nombre}`} value={cliente.cuil}/>)}
+                            <Picker.Item key={cliente.cuil} label={`${cliente.numero} - ${cliente.nombre}`} value={cliente.cuil}/>)}
                     </Picker>
                 </View>
             );

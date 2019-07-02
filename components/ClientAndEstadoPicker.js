@@ -59,7 +59,7 @@ class ClientAndEstadoPicker extends React.Component {
                         }>
                         <Picker.Item key={0} label={'Seleccione un cliente'} value=""/>
                         {clientes.map((cliente) =>
-                            <Picker.Item key={cliente.numero} label={`${cliente.numero} ${cliente.nombre}`} value={cliente.numero}/>)}
+                            <Picker.Item key={cliente.numero} label={`${cliente.numero} - ${cliente.nombre}`} value={cliente.numero}/>)}
                     </Picker>
                     <Picker
                         style={{ color:(estado == "") ? '#ACABAB' : '#FF0000' }}

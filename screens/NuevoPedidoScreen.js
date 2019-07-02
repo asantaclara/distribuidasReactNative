@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, View, ActivityIndicator, FlatList, Button} from "react-native";
+import {StyleSheet, View, ActivityIndicator, FlatList, Button, Image} from "react-native";
 import RestClient from "../rest_api/RestClient.js";
 import ClientPicker from "../components/ClientPicker"
 
