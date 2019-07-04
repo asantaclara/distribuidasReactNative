@@ -1,5 +1,5 @@
 import React from "react";
-import {Alert, StyleSheet, View, ActivityIndicator, FlatList, Button} from "react-native";
+import {Alert, StyleSheet, View, ActivityIndicator, FlatList, Button, ImageBackground} from "react-native";
 import {ListItem} from "react-native-elements";
 import RestClient from "../rest_api/RestClient";
 import {MonoText} from "../components/StyledText";
@@ -84,6 +84,9 @@ class ProductoScreen extends React.Component {
                 </View>
             )
         } else {
+            if(this.state.dataSource != null){
+
+
             return (
                 <View style={styles.container}>
                     <MonoText style={{fontWeight: 'bold'}}>Producto Nro: {dataSource.identificador}</MonoText>
@@ -120,6 +123,14 @@ class ProductoScreen extends React.Component {
                     />
                 </View>
             )
+            } else {
+                return(
+                    <View>
+                        <ImageBackground source={{uri: 'https://media.makeameme.org/created/oh-no-tenemos.jpg\n'}} style={{width: window.width, height: 400}}>
+                        </ImageBackground>
+                    </View>
+                )
+            }
         }
     }
 }

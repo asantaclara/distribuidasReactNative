@@ -2,8 +2,6 @@ import React from 'react';
 import {createAppContainer, createStackNavigator, createSwitchNavigator} from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
-import ProductosScreen from "../screens/ProductosScreen";
-import PedidosScreen from "../screens/PedidosScreen";
 
 export default createAppContainer(
   createSwitchNavigator({

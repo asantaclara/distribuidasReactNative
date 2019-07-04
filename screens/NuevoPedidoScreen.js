@@ -34,7 +34,6 @@ export default class NuevoPedidoScreen extends React.Component {
     }
 
     render() {
-        if(dataSource != null){
             return (
                 <View style={styles.container}>
                     <ClientPicker ref={this.clienteSelect} onMounted={callbacks => this.clienteSelectCallbacks=callbacks}/>
@@ -45,13 +44,7 @@ export default class NuevoPedidoScreen extends React.Component {
                     />
                 </View>
             )
-        } else {
-            return(
-                <View>
-                    <ImageBackground source={{uri: 'https://media.makeameme.org/created/oh-no-tenemos.jpg\n'}} style={{width: window.width, height: 400}}/>
-                </View>
-            )
-        }
+    
 
 
     }
