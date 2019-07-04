@@ -140,66 +140,75 @@ class PedidoScreen extends React.Component {
                 </View>
             )
         } else {
-            return (
-                <View style={styles.container}>
-                    <ImageBackground source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/2/29/LogoUADE.png'}} style={{width: window.width, height: 180}} imageStyle={{opacity:0.2}}>
+            if(this.state.dataSource != null ){
+                return (
+                    <View style={styles.container}>
+                        <ImageBackground source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/2/29/LogoUADE.png'}} style={{width: window.width, height: 180}} imageStyle={{opacity:0.2}}>
+                            <View style={styles.dialogContentView}>
+                                <Text style={styles.containerText}>Pedido Nro: {dataSource.numeroPedido}</Text>
+                                <Text style={styles.containerText}>Cliente: {dataSource.cliente.nombre}</Text>
+                                <Text style={styles.containerText}>Cuil: {dataSource.cliente.cuil}</Text>
+                                <Text style={styles.containerText}>Fecha: {dataSource.fechaPedido}</Text>
+                                <Text style={styles.containerText}>Estado: {dataSource.estado}</Text>
+                                <Text style={styles.containerText}>Cantidad Items: {dataSource.items.length}</Text>
+                            </View>
+                        </ImageBackground>
                         <View style={styles.dialogContentView}>
-                            <Text style={styles.containerText}>Pedido Nro: {dataSource.numeroPedido}</Text>
-                            <Text style={styles.containerText}>Cliente: {dataSource.cliente.nombre}</Text>
-                            <Text style={styles.containerText}>Cuil: {dataSource.cliente.cuil}</Text>
-                            <Text style={styles.containerText}>Fecha: {dataSource.fechaPedido}</Text>
-                            <Text style={styles.containerText}>Estado: {dataSource.estado}</Text>
-                            <Text style={styles.containerText}>Cantidad Items: {dataSource.items.length}</Text>
-                        </View>
-                    </ImageBackground>
-                    <View style={styles.dialogContentView}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <View style={styles.button_1}>
-                                <Button
-                                    title="Facturar"
-                                    color="#0d47a1"
-                                    onPress={() => {
-                                        console.log('Click en facturado');
-                                        this.handleFacturarPress();
-                                    }}
-                                />
-                            </View>
-                            <View style={styles.button_1}>
-                                <Button
-                                    title="Agregar Item"
-                                    color="#0d47a1"
-                                    onPress={() => {
-                                        console.log('Click en agregar Item');
-                                        this.handleAgregarItemPress();
-                                    }}
-                                />
-                            </View>
-                            <View style={styles.button_1}>
-                                <Button
-                                    title="Eliminar Pedido"
-                                    color="#0d47a1"
-                                    onPress={() => {
-                                        console.log('Click en eliminar pedido');
-                                        this.handleEliminarPedidoPress();
-                                    }}
-                                />
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.button_1}>
+                                    <Button
+                                        title="Facturar"
+                                        color="#0d47a1"
+                                        onPress={() => {
+                                            console.log('Click en facturado');
+                                            this.handleFacturarPress();
+                                        }}
+                                    />
+                                </View>
+                                <View style={styles.button_1}>
+                                    <Button
+                                        title="Agregar Item"
+                                        color="#0d47a1"
+                                        onPress={() => {
+                                            console.log('Click en agregar Item');
+                                            this.handleAgregarItemPress();
+                                        }}
+                                    />
+                                </View>
+                                <View style={styles.button_1}>
+                                    <Button
+                                        title="Eliminar Pedido"
+                                        color="#0d47a1"
+                                        onPress={() => {
+                                            console.log('Click en eliminar pedido');
+                                            this.handleEliminarPedidoPress();
+                                        }}
+                                    />
+                                </View>
                             </View>
                         </View>
+                        <FlatList
+                            data={this.state.dataSource.items}
+                            renderItem={({item}) => (
+                                <ListItem
+                                    onLongPress={this.handleItemPress.bind(this,item.numero)}
+                                    title={item.producto.nombre}
+                                    subtitle={`Cantidad: ${item.cantidad} Precio: $${item.producto.precio}`}
+                                    containerStyle={{borderBottomWidth: 0}}
+                                />
+                            )}
+                            keyExtractor={(item, index) => index.toString()}
+                        />
                     </View>
-                    <FlatList
-                        data={this.state.dataSource.items}
-                        renderItem={({item}) => (
-                            <ListItem
-                                onLongPress={this.handleItemPress.bind(this,item.numero)}
-                                title={item.producto.nombre}
-                                subtitle={`Cantidad: ${item.cantidad} Precio: $${item.producto.precio}`}
-                                containerStyle={{borderBottomWidth: 0}}
-                            />
-                        )}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
-                </View>
-            )
+                )
+            } else {
+                return(
+                    <View>
+                        <ImageBackground source={{uri: 'https://media.makeameme.org/created/oh-no-tenemos.jpg\n'}} style={{width: window.width, height: 400}}>
+                        </ImageBackground>
+                    </View>
+                )
+            }
         }
     }
 }

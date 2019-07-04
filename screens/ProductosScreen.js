@@ -41,23 +41,8 @@ export default class ProductosScreen extends React.Component {
             )
         } else {
             return (
-                <ScrollView style={styles.container}>
-                    <View style={styles.loader}>
-                        <MonoText>Length: {this.state.dataSource.length}</MonoText>
-                    </View>
-                    <FlatList
-                        data={this.state.dataSource}
-                        renderItem={({item}) => (
-                            <ListItem
-                                //roundAvatar
-                                title={item.nombre}
-                                // subtitle={item.identificador}
-                                // containerStyle={{ borderBottomWidth: 0 }}
-                            />
-                        )}
-                        keyExtractor={item => item.identificador.toString()}
-                    />
-                </ScrollView>
+                <MonoText>Length:</MonoText>
+
             )
         }
     }

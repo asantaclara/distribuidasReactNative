@@ -60,42 +60,53 @@ class PedidosScreen extends React.Component {
                 </View>
             )
         } else {
-            return (
-                <View style={styles.container}>
-                    <ClientAndEstadoPicker ref={this.clienteEstadoSelect} onMounted={callbacks => this.clienteEstadoSelectCallbacks=callbacks}/>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={styles.button_1}>
-                            <Button
-                                onPress={this.handleNuevoPedidoPress.bind(this)}
-                                title="Nuevo Pedido"
-                                color="#0d47a1"
-                                accessibilityLabel="Learn more about this purple button"
+            if(this.state.dataSource != null ){
+                return (
+                        <View style={styles.container}>
+                            <ClientAndEstadoPicker ref={this.clienteEstadoSelect} onMounted={callbacks => this.clienteEstadoSelectCallbacks=callbacks}/>
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.button_1}>
+                                    <Button
+                                        onPress={this.handleNuevoPedidoPress.bind(this)}
+                                        title="Nuevo Pedido"
+                                        color="#0d47a1"
+                                        accessibilityLabel="Learn more about this purple button"
+                                    />
+                                </View>
+                                <View style={styles.button_1}>
+                                    <Button
+                                        onPress={this.handleFiltrarPress.bind(this)}
+                                        title="Filtrar"
+                                        color="#0d47a1"
+                                        accessibilityLabel="Learn more about this purple button"
+                                    />
+                                </View>
+                            </View>
+                            <FlatList
+                                data={this.state.dataSource}
+                                renderItem={({item}) => (
+                                    <ListItem
+                                        onPress={this.handleItemPress.bind(this,item.numeroPedido)}
+                                        title={`N° de pedido: ${item.numeroPedido}`}
+                                        subtitle={`de ${item.cliente.nombre} - Cuil: ${item.cliente.cuil} `}
+                                        containerStyle={{borderBottomWidth: 0}}
+                                        badge={{ value: item.items.length, textStyle: { color: 'white' }, containerStyle: 'center', status: (item.estado == 'facturado') ? 'primary' : 'success' }}
+                                    />
+                                )}
+                                keyExtractor={item => item.numeroPedido.toString()}
                             />
                         </View>
-                        <View style={styles.button_1}>
-                            <Button
-                                onPress={this.handleFiltrarPress.bind(this)}
-                                title="Filtrar"
-                                color="#0d47a1"
-                                accessibilityLabel="Learn more about this purple button"
-                            />
-                        </View>
+                )
+            } else {
+                return(
+                    <View>
+                        <ImageBackground source={{uri: 'https://media.makeameme.org/created/oh-no-tenemos.jpg\n'}} style={{width: window.width, height: 400}}>
+                        </ImageBackground>
                     </View>
-                    <FlatList
-                        data={this.state.dataSource}
-                        renderItem={({item}) => (
-                            <ListItem
-                                onPress={this.handleItemPress.bind(this,item.numeroPedido)}
-                                title={`N° de pedido: ${item.numeroPedido}`}
-                                subtitle={`de ${item.cliente.nombre} - Cuil: ${item.cliente.cuil} `}
-                                containerStyle={{borderBottomWidth: 0}}
-                                badge={{ value: item.items.length, textStyle: { color: 'white' }, containerStyle: 'center', status: (item.estado == 'facturado') ? 'primary' : 'success' }}
-                            />
-                        )}
-                        keyExtractor={item => item.numeroPedido.toString()}
-                    />
-                </View>
-            )
+                )
+            }
+
+
         }
     }
 }

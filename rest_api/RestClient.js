@@ -1,5 +1,5 @@
 class RestClient {
-  static API_URL = "http://77e8f00d.ngrok.io";
+  static API_URL = "https://3d7678cd.ngrok.io";
   static GET_CLIENTES = "/get_clientes";
   static GET_CLIENTE = "/get_cliente/";
   static GET_PEDIDOS = "/get_pedidos";
