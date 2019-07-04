@@ -128,8 +128,6 @@ class PedidoScreen extends React.Component {
 
     }
 
-
-
     render() {
         var {loading, dataSource} = this.state;
 
@@ -204,8 +202,7 @@ class PedidoScreen extends React.Component {
             } else {
                 return(
                     <View>
-                        <ImageBackground source={{uri: 'https://media.makeameme.org/created/oh-no-tenemos.jpg\n'}} style={{width: window.width, height: 400}}>
-                        </ImageBackground>
+                        <ImageBackground source={{uri: 'https://media.makeameme.org/created/oh-no-tenemos.jpg\n'}} style={{width: window.width, height: 400}}/>
                     </View>
                 )
             }

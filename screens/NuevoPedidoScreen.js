@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, View, ActivityIndicator, FlatList, Button, Image} from "react-native";
+import {StyleSheet, View, ActivityIndicator, FlatList, Button, Image, ImageBackground} from "react-native";
 import RestClient from "../rest_api/RestClient.js";
 import ClientPicker from "../components/ClientPicker"
 
@@ -34,16 +34,25 @@ export default class NuevoPedidoScreen extends React.Component {
     }
 
     render() {
-        return (
-            <View style={styles.container}>
-                <ClientPicker ref={this.clienteSelect} onMounted={callbacks => this.clienteSelectCallbacks=callbacks}/>
-                <Button
-                    onPress={this.handleNuevoPedidoPress.bind(this)}
-                    title="Crear Pedido"
-                    color="#0d47a1"
-                />
-            </View>
-        )
+        if(dataSource != null){
+            return (
+                <View style={styles.container}>
+                    <ClientPicker ref={this.clienteSelect} onMounted={callbacks => this.clienteSelectCallbacks=callbacks}/>
+                    <Button
+                        onPress={this.handleNuevoPedidoPress.bind(this)}
+                        title="Crear Pedido"
+                        color="#0d47a1"
+                    />
+                </View>
+            )
+        } else {
+            return(
+                <View>
+                    <ImageBackground source={{uri: 'https://media.makeameme.org/created/oh-no-tenemos.jpg\n'}} style={{width: window.width, height: 400}}/>
+                </View>
+            )
+        }
+
 
     }
 }

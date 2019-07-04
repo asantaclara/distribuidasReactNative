@@ -6,17 +6,19 @@ import {
 } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-//import HomeScreen from '../screens/HomeScreen';
-//import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
-import ProductosScreen from '../screens/ProductosScreen';
 import PedidosScreen from '../screens/PedidosScreen';
 import PedidoScreen from "../screens/PedidoScreen";
 import NuevoPedidoScreen from "../screens/NuevoPedidoScreen";
 import AgregarItemEnPedidoScreen from "../screens/AgregarItemEnPedidoScreen";
+import LoginScreen from "../screens/LoginScreen";
+import ProductoScreen from "../screens/ProductoScreen";
+import Productos2Screen from "../screens/Productos2Screen";
+import NuevoProductoScreen from "../screens/NuevoProductoScreen";
 
 const ProductosStack = createStackNavigator({
-  Productos: ProductosScreen,
+  Productos: Productos2Screen,
+  Producto: ProductoScreen,
+  NuevoProducto: NuevoProductoScreen
 });
 
 ProductosStack.navigationOptions = {
@@ -25,9 +27,7 @@ ProductosStack.navigationOptions = {
     <TabBarIcon
       focused={focused}
       name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+        Platform.OS === 'ios' ? `ios-cart`: 'md-cart'
       }
     />
   ),
@@ -45,27 +45,27 @@ PedidosStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name={Platform.OS === 'ios' ? 'ios-journal' : 'md-gift'}
     />
   ),
 };
 
 const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+  Settings: LoginScreen,
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'Cuenta',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={Platform.OS === 'ios' ? 'ios-contact' : 'md-person'}
     />
   ),
 };
 
 export default createBottomTabNavigator({
+  SettingsStack,
   ProductosStack,
   PedidosStack,
-  SettingsStack,
 });
